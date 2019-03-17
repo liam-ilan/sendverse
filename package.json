@@ -1,7 +1,7 @@
 {
-  "name": "synergy-chat",
+  "name": "emoji-world",
   "version": "1.0.0",
-  "description": "A chating website for synergy students.",
+  "description": "A chating website using emoji.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
