@@ -1,0 +1,49 @@
+body{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.bubble{
+  display: table;
+  margin-bottom: 15px;
+  padding: 15px;
+  margin: 10px auto;
+  font-size: 50px;
+  border-radius: 100px;
+}
+
+.my-bubble{
+  background-color: #3f89ff;
+  color: white;
+}
+
+.external-bubble{
+  background-color: #bfbfbf
+}
+
+#input{
+  width: 70vw;
+  height: auto;
+  font-size: 30px;
+  display: inline-block;
+  margin-right: 20px
+}
+
+#input-space{
+  text-align: center;
+  height: auto;
+}
+
+#send-button{
+  font-size: 50px;
+  display: inline-block;
+  text-align: center;
+  background-color: #3f89ff;
+  padding: 15px;
+  border-radius: 100px;
+  color: white;
+}
+
+#history{
+  overflow: scroll;
+  height: 80vh;
+}

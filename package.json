@@ -1,7 +1,7 @@
 {
-  "name": "emoji-world",
+  "name": "send-verse",
   "version": "1.0.0",
-  "description": "A chating website using emoji.",
+  "description": "A public chating room for everyone.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
