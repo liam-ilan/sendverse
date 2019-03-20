@@ -1,7 +1,7 @@
 {
-  "name": "send-verse",
+  "name": "sendverse",
   "version": "1.0.0",
-  "description": "A public chating room for everyone.",
+  "description": "A public chatting room for everyone.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
