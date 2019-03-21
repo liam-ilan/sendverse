@@ -8,15 +8,19 @@ const input = document.getElementById('input');
 const sendButton = document.getElementById('send-button');
 const history = document.getElementById('history');
 
+// our color
+let color = `#${Math.floor(Math.random() * 4095).toString(16)}`
+
 // prevent enter from adding a line break
 document.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); } });
 
 // add a bubble
-function addBubble(type, message) {
+function addBubble(color, message) {
   // create a bubble
   const bubble = document.createElement('BUTTON');
-  bubble.className = `bubble ${type}`;
+  bubble.className = `bubble`;
   bubble.innerHTML = message;
+  bubble.style.backgroundColor = color
 
   // add the bubble
   history.appendChild(bubble);
@@ -27,11 +31,13 @@ function addBubble(type, message) {
 
 // post a message
 function postMessage() {
+
   // get the data
-  const data = { message: input.innerHTML };
+  const data = { message: input.innerHTML, color: color };
   if (data.message !== '') {
+
     // add the bubble
-    addBubble('my-bubble', data.message);
+    addBubble(data.color, data.message);
 
     // emit the message
     socket.emit('message', data);
@@ -41,7 +47,7 @@ function postMessage() {
 
 // on every message
 socket.on('message', (data) => {
-  addBubble('external-bubble', data.message);
+  addBubble(data.color, data.message);
 });
 
 // when you click the sendbutton, post the message

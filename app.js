@@ -1,7 +1,6 @@
 // require packages
 const express = require('express');
 let io = require('socket.io');
-require('dotenv').config();
 
 // get our port
 const port = process.env.PORT || 3000;
@@ -9,7 +8,6 @@ const port = process.env.PORT || 3000;
 // make an app
 const app = express();
 app.use(express.static('public'));
-
 
 // listen on the port
 const server = app.listen(port);
