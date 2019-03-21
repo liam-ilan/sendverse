@@ -1,14 +1,7 @@
 // require packages
 const express = require('express');
-const Mongo = require('mongodb');
 let io = require('socket.io');
-
 require('dotenv').config();
-
-// set up mongodb
-const { MongoClient } = Mongo;
-const mongoURI = process.env.MONGODB_URI;
-const mongoOptions = { useNewUrlParser: true };
 
 // get our port
 const port = process.env.PORT || 3000;
@@ -17,37 +10,28 @@ const port = process.env.PORT || 3000;
 const app = express();
 app.use(express.static('public'));
 
-// connect to the db
-let db = MongoClient.connect(mongoURI, mongoOptions, (err, client) => {
-  // set up the client
-  if (err) return { fail: 'database error' };
-  const dbName = mongoURI.substr(mongoURI.lastIndexOf('/') + 1);
-  db = client.db(dbName);
 
-  // listen on the port
-  const server = app.listen(port);
+// listen on the port
+const server = app.listen(port);
 
-  // setup sockets
-  io = io(server);
+// setup sockets
+io = io(server);
 
-  // on a connection function
-  function connection(socket) {
+// on a connection function
+function connection(socket) {
 
-    // when the client diconnects
-    socket.on('disconnect', () => ({ status: 'left' }));
+  // when the client diconnects
+  socket.on('disconnect', () => ({ status: 'left' }));
 
-    // on every message sent from THIS socket
-    socket.on('message', (data) => {
-      // emit the message to everyone but the client
-      socket.broadcast.emit('message', data);
+  // on every message sent from THIS socket
+  socket.on('message', (data) => {
+    // emit the message to everyone but the client
+    socket.broadcast.emit('message', data);
 
-      return { status: 'success' };
-    });
-  }
+    return { status: 'success' };
+  });
+}
 
-  // connection event
-  io.sockets.on('connection', connection);
+// connection event
+io.sockets.on('connection', connection);
 
-  // return something (to make eslint happy)
-  return { status: 'success' };
-});
