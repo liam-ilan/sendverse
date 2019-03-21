@@ -32,31 +32,17 @@ let db = MongoClient.connect(mongoURI, mongoOptions, (err, client) => {
 
   // on a connection function
   function connection(socket) {
-    // find the last 100 messages sent
-    db.collection('history').find().sort({ $natural: -1 }).limit(100)
-      .sort({ $natural: 1 })
-      .toArray()
-      .then((res) => {
-      // send them to the client
-        socket.emit('history', res);
 
-        // when the client diconnects
-        socket.on('disconnect', () => ({ status: 'left' }));
+    // when the client diconnects
+    socket.on('disconnect', () => ({ status: 'left' }));
 
-        // on every message sent from THIS socket
-        socket.on('message', (data) => {
-        // add the message to the database
-          db.collection('history').insertOne(data, (error) => {
-            // if there is an error
-            if (error) return socket.emit({ fail: 'database error' });
+    // on every message sent from THIS socket
+    socket.on('message', (data) => {
+      // emit the message to everyone but the client
+      socket.broadcast.emit('message', data);
 
-            // emit the message to everyone but the client
-            socket.broadcast.emit('message', data);
-
-            return { status: 'success' };
-          });
-        });
-      });
+      return { status: 'success' };
+    });
   }
 
   // connection event
