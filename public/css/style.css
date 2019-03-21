@@ -9,6 +9,7 @@ body{
   margin: 10px auto;
   font-size: 50px;
   border-radius: 100px;
+  outline: none;
 }
 
 .my-bubble{
@@ -23,7 +24,6 @@ body{
 #input{
   border: 3px solid #ccc;
   width: 70vw;
-  height: auto;
   font-size: 50px;
   display: inline-block;
   margin-right: 20px;
@@ -46,6 +46,6 @@ body{
 }
 
 #history{
-  overflow: scroll;
+  overflow-y: scroll;
   height: 80vh;
 }

@@ -43,6 +43,15 @@ socket.on('message', (data) => {
   addBubble('external-bubble', data.message);
 });
 
+// history
+socket.on('history', (data) => {
+  // for every message
+  data.forEach((item) => {
+    // add an external bubble
+    addBubble('external-bubble', item.message);
+  });
+});
+
 // when you click the sendbutton, post the message
 sendButton.addEventListener('click', postMessage);
 
