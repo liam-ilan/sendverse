@@ -23,6 +23,12 @@ function connection(socket) {
 
   // on every message sent from THIS socket
   socket.on('message', (data) => {
+
+    if(data.color.charAt(0) !== '#'){return {status: 'color-error'}}
+    if(data.color.length !== 4){return {status: 'color-error'}}
+    if(data.color.length !== 4){return {status: 'color-error'}}
+    if(isNaN(parseInt(data.color.slice(1), 16))) {return {status: 'color-error'}};
+    
     // emit the message to everyone but the client
     socket.broadcast.emit('message', data);
 
