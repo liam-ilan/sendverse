@@ -9,18 +9,28 @@ const sendButton = document.getElementById('send-button');
 const history = document.getElementById('history');
 
 // our color
-let color = `#${Math.floor(Math.random() * 4095).toString(16)}`
+const ourColor = `#${Math.floor(Math.random() * 4095).toString(16)}`;
 
 // prevent enter from adding a line break
 document.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); } });
 
+// calculate the color the font should be depending on a background color
+// for a hex with a length of 4
+function fontColor(color) {
+  const r = parseInt(color.charAt(1), 16);
+  const g = parseInt(color.charAt(2), 16);
+  const b = parseInt(color.charAt(3), 16);
+  return Math.max(r, g, b) > 10 ? 'black' : 'white';
+}
+
 // add a bubble
 function addBubble(color, message) {
   // create a bubble
-  const bubble = document.createElement('BUTTON');
-  bubble.className = `bubble`;
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
   bubble.innerHTML = message;
-  bubble.style.backgroundColor = color
+  bubble.style.backgroundColor = color;
+  bubble.style.color = fontColor(ourColor);
 
   // add the bubble
   history.appendChild(bubble);
@@ -31,11 +41,9 @@ function addBubble(color, message) {
 
 // post a message
 function postMessage() {
-
   // get the data
-  const data = { message: input.innerHTML, color: color };
+  const data = { message: input.innerHTML, color: ourColor };
   if (data.message !== '') {
-
     // add the bubble
     addBubble(data.color, data.message);
 
