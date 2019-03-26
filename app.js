@@ -2,6 +2,7 @@
 // require packages
 const express = require('express');
 let io = require('socket.io');
+const htmlEscape = require('./html-escape');
 
 // get our port
 const port = process.env.PORT || 3000;
@@ -23,8 +24,13 @@ function connection(socket) {
 
   // on every message sent from THIS socket
   socket.on('message', (data) => {
+    const newData = {
+      message: htmlEscape(data.message),
+      color: data.color,
+    };
+
     // emit the message to everyone but the client
-    socket.broadcast.emit('message', data);
+    socket.broadcast.emit('message', newData);
 
     return { status: 'success' };
   });
