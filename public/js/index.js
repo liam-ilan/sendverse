@@ -30,7 +30,7 @@ function addBubble(color, message) {
   bubble.className = 'bubble';
   bubble.innerHTML = message;
   bubble.style.backgroundColor = color;
-  bubble.style.color = fontColor(ourColor);
+  bubble.style.color = fontColor(color);
 
   // add the bubble
   history.appendChild(bubble);
