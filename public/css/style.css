@@ -1,23 +1,23 @@
 body{
   font-family: Arial, Helvetica, sans-serif;
+  padding: 0px;
+  margin: 0px;
 }
 
 .bubble{
-  display: table;
-  margin-bottom: 15px;
-  padding: 15px;
-  margin: 10px auto;
+  display: block;
+  padding: 25px;
+  margin: 20px;
   font-size: 50px;
-  border-radius: 100px;
+  border-radius: 30px 30px 30px 0px;
+  word-wrap: break-word;
+  width: 60vw;
 }
 
 .my-bubble{
-  background-color: #3f89ff;
-  color: white;
-}
-
-.external-bubble{
-  background-color: #dbdbdb;
+  margin-left: auto;
+  margin-right: 20px;
+  border-radius: 30px 30px 0px 30px;
 }
 
 #input{
@@ -32,6 +32,9 @@ body{
 #input-space{
   text-align: center;
   height: auto;
+  width: 100vw;
+  position: fixed;
+  bottom: 10px;
 }
 
 #send-button{
@@ -46,5 +49,5 @@ body{
 
 #history{
   overflow-y: scroll;
-  height: 80vh;
+  height: 90vh;
 }

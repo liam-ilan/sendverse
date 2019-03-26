@@ -24,10 +24,10 @@ function fontColor(color) {
 }
 
 // add a bubble
-function addBubble(color, message) {
+function addBubble(color, message, myBubble = false) {
   // create a bubble
   const bubble = document.createElement('div');
-  bubble.className = 'bubble';
+  bubble.className = 'bubble ' + (myBubble ? 'my-bubble' : '');
   bubble.innerHTML = message;
   bubble.style.backgroundColor = color;
   bubble.style.color = fontColor(color);
@@ -45,7 +45,7 @@ function postMessage() {
   const data = { message: input.innerHTML, color: ourColor };
   if (data.message !== '') {
     // add the bubble
-    addBubble(data.color, data.message);
+    addBubble(data.color, data.message, true);
 
     // emit the message
     socket.emit('message', data);
