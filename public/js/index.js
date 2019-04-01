@@ -4,9 +4,19 @@
 const socket = io.connect(window.location.href);
 
 // get elements
+const inputSpace = document.getElementById('input-space')
 const input = document.getElementById('input');
 const sendButton = document.getElementById('send-button');
 const history = document.getElementById('history');
+
+// init history height
+history.style.height = inputSpace.offsetTop / window.innerHeight * 100 - 1 + 'vh'
+
+// reset height and scroll in resize
+window.addEventListener('resize', function(){
+  history.style.height = inputSpace.offsetTop / window.innerHeight * 100 - 1 + 'vh'
+  history.scrollTop = history.scrollHeight;
+})
 
 // our color
 const ourColor = `#${Math.floor(Math.random() * 4095).toString(16)}`;
@@ -27,7 +37,7 @@ function fontColor(color) {
 function addBubble(color, message, myBubble = false) {
   // create a bubble
   const bubble = document.createElement('div');
-  bubble.className = 'bubble ' + (myBubble ? 'my-bubble' : '');
+  bubble.className = `bubble ${myBubble ? 'my-bubble' : ''}`;
   bubble.innerHTML = message;
   bubble.style.backgroundColor = color;
   bubble.style.color = fontColor(color);
