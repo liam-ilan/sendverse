@@ -19,7 +19,6 @@ function resizeHistory(){
 }
 
 window.addEventListener('resize', resizeHistory)
-window.addEventListener('orientationchange', resizeHistory)
 
 // our color
 const ourColor = `#${Math.floor(Math.random() * 4095).toString(16)}`;
