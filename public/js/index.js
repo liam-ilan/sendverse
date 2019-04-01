@@ -13,10 +13,13 @@ const history = document.getElementById('history');
 history.style.height = inputSpace.offsetTop / window.innerHeight * 100 - 1 + 'vh'
 
 // reset height and scroll in resize
-window.addEventListener('resize', function(){
+function resizeHistory(){
   history.style.height = inputSpace.offsetTop / window.innerHeight * 100 - 1 + 'vh'
   history.scrollTop = history.scrollHeight;
-})
+}
+
+window.addEventListener('resize', resizeHistory)
+window,addEventListener('orientationchange', resizeHistory)
 
 // our color
 const ourColor = `#${Math.floor(Math.random() * 4095).toString(16)}`;
