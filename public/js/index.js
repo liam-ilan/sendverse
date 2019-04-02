@@ -57,7 +57,7 @@ function postMessage() {
   const data = { message: input.innerText, color: ourColor };
   if (data.message !== '') {
     // add the bubble
-    addBubble(data.color, data.message, true);
+    addBubble(data.color, input.innerHTML, true);
 
     // emit the message
     socket.emit('message', data);
