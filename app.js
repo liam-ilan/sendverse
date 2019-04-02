@@ -3,6 +3,7 @@
 const express = require('express');
 let io = require('socket.io');
 const htmlEscape = require('./html-escape');
+const escapeHTML = require('escape-html');
 
 // get our port
 const port = process.env.PORT || 3000;
@@ -25,7 +26,7 @@ function connection(socket) {
   // on every message sent from THIS socket
   socket.on('message', (data) => {
     const newData = {
-      message: htmlEscape(data.message),
+      message: escapeHTML(data.message),
       color: data.color,
     };
 

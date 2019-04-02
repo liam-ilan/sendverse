@@ -54,14 +54,14 @@ function addBubble(color, message, myBubble = false) {
 // post a message
 function postMessage() {
   // get the data
-  const data = { message: input.innerHTML, color: ourColor };
+  const data = { message: input.innerText, color: ourColor };
   if (data.message !== '') {
     // add the bubble
     addBubble(data.color, data.message, true);
 
     // emit the message
     socket.emit('message', data);
-    input.innerHTML = '';
+    input.innerText = '';
   }
 }
 
