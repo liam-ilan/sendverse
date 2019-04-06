@@ -2,7 +2,6 @@
 // require packages
 const express = require('express');
 let io = require('socket.io');
-const htmlEscape = require('./html-escape');
 const escapeHTML = require('escape-html');
 
 // get our port
