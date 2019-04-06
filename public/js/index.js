@@ -4,24 +4,12 @@
 const socket = io.connect(window.location.href);
 
 // get elements
-const inputSpace = document.getElementById('input-space')
 const input = document.getElementById('input');
 const sendButton = document.getElementById('send-button');
 const history = document.getElementById('history');
 
-// init history height
-history.style.height = inputSpace.offsetTop / window.innerHeight * 100 - 1 + 'vh'
-
-// reset height and scroll in resize
-function resizeHistory(){
-  history.style.height = inputSpace.offsetTop / window.innerHeight * 100 - 1 + 'vh'
-  history.scrollTop = history.scrollHeight;
-}
-
-window.addEventListener('resize', resizeHistory)
-
 // our color
-const ourColor = `#${Math.floor(Math.random() * 4095).toString(16)}`;
+const ourColor = `#${Math.floor(Math.random() * 4095).toString(16).padStart(3, '0')}`;
 
 // prevent enter from adding a line break
 document.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); } });

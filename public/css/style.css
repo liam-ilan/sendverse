@@ -1,4 +1,4 @@
-body{
+body, html{
   font-family: Arial, Helvetica, sans-serif;
   padding: 0px;
   margin: 0px;
@@ -31,7 +31,7 @@ body{
 
 #input-space{
   text-align: center;
-  height: auto;
+  height: 100px;
   width: 100vw;
   position: fixed;
   bottom: 10px;
@@ -49,4 +49,5 @@ body{
 
 #history{
   overflow-y: scroll;
+  height: calc(100vh - (100px + 10px + 10px))
 }
