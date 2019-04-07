@@ -19,6 +19,7 @@ io = io(server);
 
 // on a connection function
 function connection(socket) {
+
   // when the client diconnects
   socket.on('disconnect', () => ({ status: 'left' }));
 
@@ -31,7 +32,7 @@ function connection(socket) {
 
     if (newData.color.charAt(0) !== '#') { return { status: 'error' }; }
     if (newData.color.length !== 4) { return { status: 'error' }; }
-    if (Number.isNaN(parseInt(newData.message.substring(1), 16))) { return { status: 'error' }; }
+    if (Number.isNaN(parseInt(newData.color.substring(1), 16))) { return { status: 'error' }; }
 
     // emit the message to everyone but the client
     socket.broadcast.emit('message', newData);
