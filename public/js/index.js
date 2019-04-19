@@ -1,7 +1,8 @@
 /* global io */
 
 // connect the socket
-const socket = io.connect('/');
+let socketPath = location.href.substr(location.href.lastIndexOf('/'), location.href.length)
+const socket = io.connect(socketPath);
 
 // get elements
 const input = document.getElementById('input');

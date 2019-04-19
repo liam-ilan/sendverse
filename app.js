@@ -9,7 +9,26 @@ const port = process.env.PORT || 3000;
 
 // make an app
 const app = express();
-app.use(express.static('public'));
+app.use('/', express.static('public'));
+
+// the list of active namespaces
+let namespaces = []
+
+function namespaceConnection(req, res){
+  //get the namespace
+  let namespace = req.params.namespace
+
+  // if the namespace is not in the list, add it
+  if (namespaces.indexOf(namespace) === -1){
+    namespaces.push(namespace)
+    io.of(`/${namespace}`).on('connection', connection)
+  }
+
+  // serve
+  res.sendFile(__dirname + '/public/index.html');
+}
+// namespace paths
+app.get('/:namespace', namespaceConnection)
 
 // listen on the port
 const server = app.listen(port);
@@ -41,5 +60,6 @@ function connection(socket) {
   });
 }
 
+io.of(`/`).on('connection', connection)
 // connection event
-io.sockets.on('connection', connection);
+//io.of('/').on('connection', connection);
