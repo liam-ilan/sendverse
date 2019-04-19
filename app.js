@@ -8,37 +8,21 @@ const escapeHTML = require('escape-html');
 const port = process.env.PORT || 3000;
 
 // make an app
-const app = express();
+const app = express({ static: true });
 app.use('/', express.static('public'));
 
+// redirect trailing slash
+app.use((req, res, next) => {
+  if (req.url.substr(-1) === '/') res.redirect(301, req.url.slice(0, -1));
+  else next();
+});
+
 // the list of active namespaces
-let namespaces = []
+const namespaces = [];
 
-function namespaceConnection(req, res){
-  //get the namespace
-  let namespace = req.params.namespace
-
-  // if the namespace is not in the list, add it
-  if (namespaces.indexOf(namespace) === -1){
-    namespaces.push(namespace)
-    io.of(`/${namespace}`).on('connection', connection)
-  }
-
-  // serve
-  res.sendFile(__dirname + '/public/index.html');
-}
-// namespace paths
-app.get('/:namespace', namespaceConnection)
-
-// listen on the port
-const server = app.listen(port);
-
-// setup sockets
-io = io(server);
 
 // on a connection function
 function connection(socket) {
-
   // when the client diconnects
   socket.on('disconnect', () => ({ status: 'left' }));
 
@@ -60,6 +44,27 @@ function connection(socket) {
   });
 }
 
-io.of(`/`).on('connection', connection)
+// namespace paths
+app.get('/:namespace', (req, res) => {
+  // get the namespace
+  const { namespace } = req.params;
+
+  // if the namespace is not in the list, add it
+  if (namespaces.indexOf(namespace) === -1) {
+    namespaces.push(namespace);
+    io.of(`/${namespace}`).on('connection', connection);
+  }
+
+  // serve
+  res.sendFile(`${__dirname}/public/index.html`);
+});
+
+// listen on the port
+const server = app.listen(port);
+
+// setup sockets
+io = io(server);
+
+io.of('/').on('connection', connection);
 // connection event
-//io.of('/').on('connection', connection);
+// io.of('/').on('connection', connection);
