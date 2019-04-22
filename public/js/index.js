@@ -14,6 +14,18 @@ const ourColor = `#${Math.floor(Math.random() * 4095).toString(16).padStart(3, '
 // prevent enter from adding a line break
 document.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); } });
 
+// remove styling from copy paste
+input.addEventListener('paste', (e) => {
+  // cancel paste
+  e.preventDefault();
+
+  // get text representation of clipboard
+  const text = (e.originalEvent || e).clipboardData.getData('text/plain');
+
+  // insert text manually
+  document.execCommand('insertHTML', false, text);
+});
+
 // calculate the color the font should be depending on a background color
 // for a hex with a length of 4
 function fontColor(color) {
@@ -45,7 +57,7 @@ function postMessage() {
   const data = { message: input.innerText, color: ourColor };
   if (data.message !== '') {
     // add the bubble
-    addBubble(data.color, input.innerHTML, true);
+    addBubble(data.color, input.innerText, true);
 
     // emit the message
     socket.emit('message', data);
