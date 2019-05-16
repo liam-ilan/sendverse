@@ -17,8 +17,8 @@
     "nodemon": "^1.18.10"
   },
   "dependencies": {
-    "escape-html": "^1.0.3",
     "express": "^4.16.4",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.2.0",
+    "voca": "^1.4.0"
   }
 }

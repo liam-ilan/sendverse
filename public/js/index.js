@@ -40,7 +40,7 @@ function addBubble(color, message, myBubble = false) {
   // create a bubble
   const bubble = document.createElement('div');
   bubble.className = `bubble ${myBubble ? 'my-bubble' : ''}`;
-  bubble.innerHTML = message;
+  bubble.innerHTML = v.escapeHtml(v.unescapeHtml(message));
   bubble.style.backgroundColor = color;
   bubble.style.color = fontColor(color);
 

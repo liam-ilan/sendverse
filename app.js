@@ -2,7 +2,7 @@
 // require packages
 const express = require('express');
 let io = require('socket.io');
-const escapeHTML = require('escape-html');
+const voca = require('voca')
 
 // get our port
 const port = process.env.PORT || 3000;
@@ -29,7 +29,7 @@ function connection(socket) {
   // on every message sent from THIS socket
   socket.on('message', (data) => {
     const newData = {
-      message: escapeHTML(data.message),
+      message: voca.escapeHtml(data.message),
       color: data.color,
     };
 
