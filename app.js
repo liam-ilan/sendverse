@@ -2,7 +2,7 @@
 // require packages
 const express = require('express');
 let io = require('socket.io');
-const voca = require('voca')
+const voca = require('voca');
 
 // get our port
 const port = process.env.PORT || 3000;
@@ -13,7 +13,7 @@ app.use('/', express.static('public'));
 
 // redirect trailing slash
 app.use((req, res, next) => {
-  if (req.url.substr(-1) === '/') res.redirect(301, req.url.slice(0, -1));
+  if (req.url.substr(-1) === '/' && (req.url.split('/').length - 1 > 1)) res.redirect(301, req.url.slice(0, -1));
   else next();
 });
 
@@ -56,8 +56,15 @@ app.get('/:namespace', (req, res) => {
   }
 
   // serve
-  res.sendFile(`${__dirname}/public/index.html`);
+  res.sendFile(`${__dirname}/public/chatroom/index.html`);
 });
+
+// namespace paths
+app.get('/', (req, res) => {
+  // serve
+  res.sendFile(`${__dirname}/public/homepage/index.html`);
+});
+
 
 // listen on the port
 const server = app.listen(port);
@@ -66,5 +73,3 @@ const server = app.listen(port);
 io = io(server);
 
 io.of('/').on('connection', connection);
-// connection event
-// io.of('/').on('connection', connection);

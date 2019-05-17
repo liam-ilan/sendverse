@@ -1,4 +1,4 @@
-/* global io */
+/* global io v */
 
 // connect the socket
 const socket = io.connect(window.location.href);

@@ -1,0 +1,39 @@
+body, html{
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+.input-shape{
+  position: relative;
+  border: 10px solid #ff4848;
+  width: 300px;
+  height: 90px;
+  font-size: 50px;
+  text-align: center;
+  line-height: 90px;
+  border-radius: 10px;
+  outline: none;
+}
+
+#header{
+  color: white;
+  text-align: center;
+  background-color: #ff4848;
+  font-size: 50px;
+  line-height: 80px
+}
+
+#room-name{
+  color: #bbb;
+  margin: auto;
+  top: 150px;
+}
+
+#enter{
+  margin: auto;
+  color: #fff;
+  background-color: #ff4848;
+  top: 160px;
+}
