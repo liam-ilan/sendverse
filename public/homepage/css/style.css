@@ -25,10 +25,14 @@ body, html{
   line-height: 80px
 }
 
+::placeholder{
+  color: #ccc;
+}
 #room-name{
   color: #bbb;
   margin: auto;
   top: 150px;
+  display: block;
 }
 
 #enter{
