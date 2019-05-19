@@ -4,6 +4,7 @@
 const socket = io.connect(window.location.href);
 
 // get elements
+const share = document.getElementById('share');
 const input = document.getElementById('input');
 const sendButton = document.getElementById('send-button');
 const history = document.getElementById('history');
@@ -76,4 +77,11 @@ sendButton.addEventListener('click', postMessage);
 // when you press enter, post the message
 input.addEventListener('keyup', (e) => {
   if (e.key === 'Enter') { postMessage(e); }
+});
+
+
+share.addEventListener('click', () => {
+  const body = window.location.href;
+  const title = 'Come join my Sendverse chatroom!';
+  window.location.href = `https://mail.google.com/mail/?view=cm&su=${title}&body=${body}`;
 });
