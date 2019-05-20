@@ -1,7 +1,7 @@
 /* global io v */
 
 // connect the socket
-const socket = io.connect(window.location.href);
+const socket = io.connect(window.location.href.toLowerCase());
 
 // get elements
 const share = document.getElementById('share');
@@ -80,20 +80,19 @@ input.addEventListener('keyup', (e) => {
 });
 
 // copy text to clipboard
-function copyToClipboard(text){
-
+function copyToClipboard(text) {
   // create the element
-  let element = document.createElement('textarea');
+  const element = document.createElement('textarea');
 
   // put our text inside
-  element.innerHTML = text
+  element.innerHTML = text;
 
   // add the element to the body
   document.body.appendChild(element);
 
   // select and copyt
-  element.select()
-  document.execCommand('copy')
+  element.select();
+  document.execCommand('copy');
 
   // remove element
   document.body.removeChild(element);
@@ -101,13 +100,12 @@ function copyToClipboard(text){
 
 // when share is clicked
 share.addEventListener('click', () => {
-
   // cppy to clipboard
-  copyToClipboard(window.location.href)
+  copyToClipboard(window.location.href);
 
   // Say "Coppied"
-  share.innerHTML = 'Coppied'
+  share.innerHTML = 'Coppied';
 
   // after 1 secomd, change back to "Copy Link"
-  window.setTimeout(() => {share.innerHTML = 'Copy Link'}, 1000)
+  window.setTimeout(() => { share.innerHTML = 'Copy Link'; }, 1000);
 });

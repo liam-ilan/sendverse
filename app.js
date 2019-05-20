@@ -47,7 +47,10 @@ function connection(socket) {
 // namespace paths
 app.get('/:namespace', (req, res) => {
   // get the namespace
-  const { namespace } = req.params;
+  let { namespace } = req.params;
+
+  // lowercase
+  namespace = namespace.toLowerCase();
 
   // if the namespace is not in the list, add it
   if (namespaces.indexOf(namespace) === -1) {
