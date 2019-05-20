@@ -79,9 +79,35 @@ input.addEventListener('keyup', (e) => {
   if (e.key === 'Enter') { postMessage(e); }
 });
 
+// copy text to clipboard
+function copyToClipboard(text){
 
+  // create the element
+  let element = document.createElement('textarea');
+
+  // put our text inside
+  element.innerHTML = text
+
+  // add the element to the body
+  document.body.appendChild(element);
+
+  // select and copyt
+  element.select()
+  document.execCommand('copy')
+
+  // remove element
+  document.body.removeChild(element);
+}
+
+// when share is clicked
 share.addEventListener('click', () => {
-  const body = window.location.href;
-  const title = 'Come join my Sendverse chatroom!';
-  window.location.href = `https://mail.google.com/mail/?view=cm&su=${title}&body=${body}`;
+
+  // cppy to clipboard
+  copyToClipboard(window.location.href)
+
+  // Say "Coppied"
+  share.innerHTML = 'Coppied'
+
+  // after 1 secomd, change back to "Copy Link"
+  window.setTimeout(() => {share.innerHTML = 'Copy Link'}, 1000)
 });
