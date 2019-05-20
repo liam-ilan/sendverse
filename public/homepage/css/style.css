@@ -28,10 +28,11 @@ body, html{
 ::placeholder{
   color: #ccc;
 }
+
 #room-name{
   color: #bbb;
   margin: auto;
-  top: 150px;
+  top: 80px;
   display: block;
 }
 
@@ -39,5 +40,13 @@ body, html{
   margin: auto;
   color: #fff;
   background-color: #ff4848;
-  top: 160px;
+  top: 90px;
+}
+
+#lobby-section{
+  position: relative;
+  top: 110px;
+  text-align: center;
+  font-size: 30px;
+  line-height: 40px
 }
