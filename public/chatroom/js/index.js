@@ -1,5 +1,6 @@
 /* global io v */
 
+const IOS = !!navigator.platform.match(/iPhone|iPod|iPad/);
 // connect the socket
 const socket = io.connect(window.location.href.toLowerCase());
 
@@ -79,7 +80,8 @@ input.addEventListener('keyup', (e) => {
   if (e.key === 'Enter') { postMessage(e); }
 });
 
-// copy text to clipboard
+
+// copy text to clipboard (for IOS)
 function copyToClipboard(text) {
   // create the element
   const element = document.createElement('textarea');
@@ -88,27 +90,34 @@ function copyToClipboard(text) {
   element.contentEditable = 'true';
   element.readOnly = 'false';
 
-  // get range
-  const range = document.createRange();
-
-  // select
-  range.selectNodeContents(element);
-
   // put our text inside
   element.innerHTML = text;
 
-  // get selection
-  const selection = window.getSelection();
-  selection.removeAllRanges();
-  selection.addRange(range);
-
-  element.setSelectionRange(0, 999999);
-
-  // add the element to the body
+  // add element
   document.body.appendChild(element);
 
-  // copy
-  document.execCommand('copy');
+  // if IOS
+  if (IOS) {
+    // get range
+    const range = document.createRange();
+
+    // select
+    range.selectNodeContents(element);
+
+    // get selection
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+
+    element.setSelectionRange(0, 999999);
+
+    // copy
+    document.execCommand('copy');
+  } else {
+    // select and copy
+    element.select();
+    document.execCommand('copy');
+  }
 
   // remove element
   document.body.removeChild(element);
@@ -120,7 +129,7 @@ share.addEventListener('click', () => {
   copyToClipboard(window.location.href);
 
   // Say "Coppied"
-  share.innerHTML = 'Copied';
+  share.innerHTML = 'Coppied';
 
   // after 1 secomd, change back to "Copy Link"
   window.setTimeout(() => { share.innerHTML = 'Copy Link'; }, 1000);
