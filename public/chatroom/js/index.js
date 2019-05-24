@@ -84,14 +84,30 @@ function copyToClipboard(text) {
   // create the element
   const element = document.createElement('textarea');
 
+  // set content editable to true
+  element.contentEditable = 'true';
+  element.readOnly = 'false';
+
+  // get range
+  const range = document.createRange();
+
+  // select
+  range.selectNodeContents(element);
+
   // put our text inside
   element.innerHTML = text;
+
+  // get selection
+  const selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+
+  element.setSelectionRange(0, 999999);
 
   // add the element to the body
   document.body.appendChild(element);
 
-  // select and copyt
-  element.select();
+  // copy
   document.execCommand('copy');
 
   // remove element
@@ -104,7 +120,7 @@ share.addEventListener('click', () => {
   copyToClipboard(window.location.href);
 
   // Say "Coppied"
-  share.innerHTML = 'Coppied';
+  share.innerHTML = 'Copied';
 
   // after 1 secomd, change back to "Copy Link"
   window.setTimeout(() => { share.innerHTML = 'Copy Link'; }, 1000);
