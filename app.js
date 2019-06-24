@@ -1,4 +1,3 @@
-
 // require packages
 const express = require('express');
 let io = require('socket.io');
@@ -19,7 +18,7 @@ app.use((req, res, next) => {
   else next();
 });
 
-// the list of active namespaces
+// keep list of active namespaces so we know if a given name needs to be created
 const namespaces = [];
 
 // on a connection function
@@ -57,10 +56,7 @@ function connection(socket) {
 
 // namespace paths
 app.get('/:namespace', (req, res) => {
-  // get the namespace
   let { namespace } = req.params;
-
-  // lowercase
   namespace = namespace.toLowerCase();
 
   // if the namespace is not in the list, add it
@@ -75,7 +71,6 @@ app.get('/:namespace', (req, res) => {
 
 // main path
 app.get('/', (req, res) => {
-  // serve
   res.sendFile(`${__dirname}/public/homepage/index.html`);
 });
 
