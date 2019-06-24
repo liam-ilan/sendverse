@@ -1,4 +1,87 @@
-/* global io v */
+/* global io */
+
+/* eslint-disable */
+/*!
+ * escape-html
+ * Copyright(c) 2012-2013 TJ Holowaychuk
+ * Copyright(c) 2015 Andreas Lubbe
+ * Copyright(c) 2015 Tiancheng "Timothy" Gu
+ * MIT Licensed
+ */
+
+
+/**
+ * Module variables.
+ * @private
+ */
+
+const matchHtmlRegExp = /["'&<>]/;
+
+/**
+ * Module exports.
+ * @public
+ */
+
+// module.exports = escapeHtml
+
+/**
+ * Escape special characters in the given string of text.
+ *
+ * @param  {string} string The string to escape for inserting into HTML
+ * @return {string}
+ * @public
+ */
+
+function escapeHtml(string) {
+  const str = `${string}`;
+  const match = matchHtmlRegExp.exec(str);
+
+  if (!match) {
+    return str;
+  }
+
+  let escape;
+  let html = '';
+  let index = 0;
+  let lastIndex = 0;
+
+  for (index = match.index; index < str.length; index++) {
+    switch (str.charCodeAt(index)) {
+      case 34: // "
+        escape = '&quot;';
+        break;
+      case 38: // &
+        escape = '&amp;';
+        break;
+      case 39: // '
+        escape = '&#39;';
+        break;
+      case 60: // <
+        escape = '&lt;';
+        break;
+      case 62: // >
+        escape = '&gt;';
+        break;
+      default:
+        continue;
+    }
+
+    if (lastIndex !== index) {
+      html += str.substring(lastIndex, index);
+    }
+
+    lastIndex = index + 1;
+    html += escape;
+  }
+
+  return lastIndex !== index
+    ? html + str.substring(lastIndex, index)
+    : html;
+}
+/* eslint-enable */
+
+/* Main */
+
 const socket = io.connect(window.location.href.toLowerCase());
 
 const share = document.getElementById('share');
@@ -22,7 +105,9 @@ function fontColor(color) {
 function addBubble(color, message, myBubble = false) {
   const bubble = document.createElement('div');
   bubble.className = `bubble ${myBubble ? 'my-bubble' : ''}`;
-  bubble.innerHTML = v.escapeHtml(v.unescapeHtml(message));
+
+  // escape everything, before putting it in the UI
+  bubble.innerHTML = escapeHtml(message);
   bubble.style.backgroundColor = color;
   bubble.style.color = fontColor(color);
 
@@ -76,7 +161,7 @@ share.addEventListener('click', () => {
   element.innerHTML = window.location.href; // this is what we want copied.
   document.body.appendChild(element);
 
-  if (!!navigator.platform.match(/iPhone|iPod|iPad/)) {
+  if (navigator.platform.match(/iPhone|iPod|iPad/)) {
     const range = document.createRange();
     range.selectNodeContents(element);
 

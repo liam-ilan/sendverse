@@ -2,10 +2,9 @@
 // require packages
 const express = require('express');
 let io = require('socket.io');
-const voca = require('voca');
 
 // current count of online people
-let currentCount = 0
+let currentCount = 0;
 
 // get our port
 const port = process.env.PORT || 3000;
@@ -26,24 +25,21 @@ const namespaces = [];
 // on a connection function
 function connection(socket) {
   // add to count
-  currentCount += 1
+  currentCount += 1;
 
   // when the client diconnects
   socket.on('disconnect', () => {
-
     // remove 1 from count
-    if(currentCount !== 0){
-      currentCount -= 1
+    if (currentCount !== 0) {
+      currentCount -= 1;
     }
-
   });
 
   // on every message sent from THIS socket
   socket.on('message', (data) => {
-
     // set up data
     const newData = {
-      message: voca.escapeHtml(data.message),
+      message: data.message,
       color: data.color,
     };
 
@@ -79,15 +75,14 @@ app.get('/:namespace', (req, res) => {
 
 // main path
 app.get('/', (req, res) => {
-
   // serve
   res.sendFile(`${__dirname}/public/homepage/index.html`);
 });
 
 // get count
 app.get('/data/count', (req, res) => {
-  res.json({online: currentCount})
-})
+  res.json({ online: currentCount });
+});
 
 // listen on the port
 const server = app.listen(port);
