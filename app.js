@@ -4,6 +4,9 @@ const express = require('express');
 let io = require('socket.io');
 const voca = require('voca');
 
+// current count of online people
+let currentCount = 0
+
 // get our port
 const port = process.env.PORT || 3000;
 
@@ -20,19 +23,31 @@ app.use((req, res, next) => {
 // the list of active namespaces
 const namespaces = [];
 
-
 // on a connection function
 function connection(socket) {
+  // add to count
+  currentCount += 1
+
   // when the client diconnects
-  socket.on('disconnect', () => ({ status: 'left' }));
+  socket.on('disconnect', () => {
+
+    // remove 1 from count
+    if(currentCount !== 0){
+      currentCount -= 1
+    }
+
+  });
 
   // on every message sent from THIS socket
   socket.on('message', (data) => {
+
+    // set up data
     const newData = {
       message: voca.escapeHtml(data.message),
       color: data.color,
     };
 
+    // validate
     if (newData.color.charAt(0) !== '#') { return { status: 'error' }; }
     if (newData.color.length !== 4) { return { status: 'error' }; }
     if (Number.isNaN(parseInt(newData.color.substring(1), 16))) { return { status: 'error' }; }
@@ -62,17 +77,20 @@ app.get('/:namespace', (req, res) => {
   res.sendFile(`${__dirname}/public/chatroom/index.html`);
 });
 
-// namespace paths
+// main path
 app.get('/', (req, res) => {
+
   // serve
   res.sendFile(`${__dirname}/public/homepage/index.html`);
 });
 
+// get count
+app.get('/data/count', (req, res) => {
+  res.json({online: currentCount})
+})
 
 // listen on the port
 const server = app.listen(port);
 
 // setup sockets
 io = io(server);
-
-io.of('/').on('connection', connection);

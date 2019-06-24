@@ -50,3 +50,9 @@ body, html{
   font-size: 30px;
   line-height: 40px
 }
+
+#online-count{
+  padding-top: 20px;
+  text-align: center;
+  font-size: 30px;
+}
