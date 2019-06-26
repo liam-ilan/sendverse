@@ -5,6 +5,21 @@ body, html{
   box-sizing: border-box;
 }
 
+::placeholder{
+  color: #ccc;
+}
+
+main{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+main a {
+  color: #3f89ff;
+}
+
 .bubble{
   display: block;
   padding: 25px;
@@ -84,4 +99,42 @@ body, html{
 #share:hover{
   background-color: #bdbdbd;
   opacity: 1;
+}
+
+.input-shape{
+  position: relative;
+  border: 10px solid #3f89ff;
+  width: 300px;
+  height: 90px;
+  font-size: 50px;
+  text-align: center;
+  line-height: 90px;
+  border-radius: 10px;
+  outline: none;
+}
+
+#room-name{
+  color: #bbb;
+  margin: auto;
+  display: block;
+  margin-top: 30px;
+}
+
+#enter{
+  margin: auto;
+  color: #fff;
+  background-color: #3f89ff;
+  margin-top: 15px;
+}
+
+#lobby-section{
+  text-align: center;
+  font-size: 24px;
+  line-height: 40px;
+  margin-top: 15px;
+}
+
+#online-count{
+  text-align: center;
+  font-size: 24px;
 }

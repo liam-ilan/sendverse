@@ -1,3 +1,9 @@
+/*!
+ * sendverse
+ * Copyright(c) 2019 Liam Ilan
+ * MIT Licensed
+ */
+ 
 const roomName = document.getElementById('room-name');
 const enter = document.getElementById('enter');
 const onlineCount = document.getElementById('online-count');
