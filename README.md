@@ -1,7 +1,7 @@
 # Sendverse
 An anonymous chatting server you can deploy for your friends.
 See it in action:
-http://sendverse.herokuapp.com/
+https://sendverse.herokuapp.com/
 
 #### The software
 This repo includes the server side and frontend software required to run your own chatting app. The software is written in javascript. It uses Express.js to serve files, and socket.io, for the the realtime communication between the server and client.
