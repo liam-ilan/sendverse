@@ -1,0 +1,5 @@
+{
+  "name": "Sendverse chatting app",
+  "description": "A chatting app based on socket.io and Express",
+  "repository": "https://github.com/liam-ilan/sendverse"
+}
