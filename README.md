@@ -24,7 +24,9 @@ In this repo, you will find the server-side software, *app.js*, and the frontend
     npm start
 ```
 
-*Or you can:*
+*Or you can:*     
+
+
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 #### Development 
