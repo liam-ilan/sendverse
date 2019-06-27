@@ -23,7 +23,9 @@ In this repo, you will find the server-side software, *app.js*, and the frontend
 ``` bash
     npm start
 ```
-*(or push to Heroku)*
+
+*Or you can:*
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 #### Development 
 *Start up a localhost on port 3000 for development with Nodemon and Webpack:*
